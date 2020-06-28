@@ -44,6 +44,7 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'webserver_login', usernameVariable: 'USERNAME', passwordVariable: 'USERPASS')
                                  script {
                                      sh "sshpass -p '$USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@prod_ip \"docker pull roelray/train-schedule:$env.BUILDNUMBER}\""
+                                     try {
                                      sh "sshpass -p '$'USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@prod_ip \"dcoker stop train-schedule\""
                                      sh "sshpass -p '$'USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@prod_ip \"dcoker rm train-schedule\""
                                  } catch (err) {
